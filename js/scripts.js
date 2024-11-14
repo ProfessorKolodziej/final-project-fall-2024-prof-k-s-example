@@ -5,20 +5,20 @@
 // - Do not use onclick - use addEventListener instead
 // - Run npm run test regularly to check autograding
 // - You'll need to link this file to your HTML :)
+// See https://www.npmjs.com/package/webflow-api documentation.
+// https://developers.webflow.com/data/reference/site-token
+import * as webflowApi from 'https://esm.run/webflow-api';
 
-const radioButtons = document.querySelector('#answers');
+const WebflowClient = webflowApi.WebflowClient;
 
-let answer = localStorage.getItem("answer");
+const token = '479e9df28216b448919da5f910e49ae546da588177e078477e37e12ee5f48a4e';
+const webflow = new WebflowClient({ accessToken: token });
 
-if (radioButtons !== null) {
-	radioButtons.addEventListener("click", function (event) {
-		if (event.target.tagName === "INPUT") {
-			localStorage.setItem("answer", event.target.value);
-			console.log("It's running, right?")
-		}
-	});
-}
-
-console.log(answer);
-localStorage.clear();
-
+(async () => {
+	try {
+		const sites = await webflow.sites.list();
+		console.log(sites);
+	} catch (error) {
+		console.error('Error fetching sites:', error);
+	}
+})();
