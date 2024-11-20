@@ -7,13 +7,27 @@
 // - You'll need to link this file to your HTML :)
 // See https://www.npmjs.com/package/webflow-api documentation.
 // https://developers.webflow.com/data/reference/site-token
-import * as webflowApi from 'https://esm.run/webflow-api';
+import webflowApi from 'https://cdn.jsdelivr.net/npm/webflow-api@2.4.2/+esm'
 
 const WebflowClient = webflowApi.WebflowClient;
 
-const token = '479e9df28216b448919da5f910e49ae546da588177e078477e37e12ee5f48a4e';
+const token = '205f078bc1aa70ad2a2c96340cec0b65b040cea8b35c67f87a99815da03286da';
 const webflow = new WebflowClient({ accessToken: token });
 
+const site_id = '673559d7cc5c9c0356658aaa';
+
+fetch(`https://api.webflow.com/sites/673559d7cc5c9c0356658aaa/`, {
+	headers: {
+		'Authorization': `Bearer ${token}`
+	}
+})
+	.then(response => response.json())
+	.then(data => console.log(data));
+/*
+webflow.sites.get('673559d7cc5c9c0356658aaa')
+	.then(response => response.json)
+	.then(data => console.log(data));*/
+/*
 (async () => {
 	try {
 		const sites = await webflow.sites.list();
@@ -22,3 +36,4 @@ const webflow = new WebflowClient({ accessToken: token });
 		console.error('Error fetching sites:', error);
 	}
 })();
+*/
